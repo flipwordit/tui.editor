@@ -141,10 +141,10 @@ export const nodeTypeWriters: ToMdNodeTypeWriterMap = {
   },
 
   listItem(state, { node }) {
-    const { task, checked } = node.attrs;
+    const { task, checked, date } = node.attrs;
 
     if (task) {
-      state.write(`[${checked ? 'x' : ' '}] `);
+      state.write(`[${checked ? 'x' : ' '}] <!--${date}--> `);
     }
 
     state.convertNode(node);

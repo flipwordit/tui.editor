@@ -291,6 +291,13 @@ class ToastUIEditorCore {
   private addInitEvent() {
     this.on('needChangeMode', this.changeMode.bind(this));
     addDefaultImageBlobHook(this.eventEmitter);
+    this.eventEmitter.listen('addHtml', (html: string) => {
+      this.setHTML(html);
+
+      const md = this.mdEditor.getMarkdown();
+
+      this.mdEditor.setMarkdown(md.replaceAll(/\[(?<n>[0-9:]+)\]/gi, '\n[$1]'));
+    });
   }
 
   private addInitCommand(mdCommands: PluginCommandMap, wwCommands: PluginCommandMap) {

@@ -30,7 +30,11 @@ export function task() {
             const offset = currentPos.before(listItem.depth);
             const { attrs } = listItem.node;
 
-            tr.setNodeMarkup(offset, null, { ...attrs, ...{ checked: !attrs.checked } });
+            tr.setNodeMarkup(offset, null, {
+              ...attrs,
+              ...{ checked: !attrs.checked },
+              ...{ date: attrs.checked ? null : new Date(Date.now()).toString() },
+            });
             view.dispatch!(tr);
 
             return true;

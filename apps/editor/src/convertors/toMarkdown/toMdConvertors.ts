@@ -114,7 +114,7 @@ export const toMdConvertors: ToMdConvertorMap = {
   },
 
   listItem({ node }, { inTable }) {
-    const { task, checked } = node.attrs;
+    const { task, checked, date } = node.attrs;
     let { rawHTML } = node.attrs;
 
     if (inTable) {
@@ -123,9 +123,10 @@ export const toMdConvertors: ToMdConvertorMap = {
 
     const className = task ? ` class="task-list-item${checked ? ' checked' : ''}"` : '';
     const dataset = task ? ` data-task${checked ? ` data-task-checked` : ''}` : '';
+    const dateset = task ? ` date-task="${checked ? ` ${date}` : ''}"` : '';
 
     return {
-      rawHTML: rawHTML ? [`<${rawHTML}${className}${dataset}>`, `</${rawHTML}>`] : null,
+      rawHTML: rawHTML ? [`<${rawHTML}${className}${dataset}${dateset}>`, `</${rawHTML}>`] : null,
     };
   },
 

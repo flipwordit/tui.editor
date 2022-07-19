@@ -96,6 +96,7 @@ export default class MdEditor extends EditorBase {
     this.clipboard = document.createElement('textarea');
     this.clipboard.className = cls('pseudo-clipboard');
     this.clipboard.addEventListener('paste', (ev: ClipboardEvent) => {
+      console.log('clipboard!');
       const clipboardData =
         (ev as ClipboardEvent).clipboardData || (window as WindowWithClipboard).clipboardData;
       const items = clipboardData && clipboardData.items;
@@ -106,6 +107,13 @@ export default class MdEditor extends EditorBase {
         if (imageBlob) {
           ev.preventDefault();
           emitImageBlobHook(this.eventEmitter, imageBlob, ev.type);
+        }
+
+        if (clipboardData.types.find((el) => el === 'text/html')) {
+          ev.preventDefault();
+
+          if (ev.clipboardData)
+            this.eventEmitter.emit('addHtml', ev.clipboardData.getData('text/html'));
         }
       }
     });

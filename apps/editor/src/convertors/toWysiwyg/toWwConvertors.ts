@@ -311,6 +311,10 @@ const toWwConvertors: ToWwConvertorMap = {
   htmlInline(state, node) {
     const html = node.literal!;
     const matched = html.match(reHTMLTag)!;
+
+    if (!matched) {
+      return;
+    }
     const [, openTagName, , closeTagName] = matched;
     const typeName = (openTagName || closeTagName).toLowerCase();
     const markType = state.schema.marks[typeName];
@@ -338,6 +342,11 @@ const toWwConvertors: ToWwConvertorMap = {
     const html = node.literal!;
     const container = document.createElement('div');
     const matched = html.match(reHTMLTag)!;
+
+    if (!matched) {
+      return;
+    }
+
     const [, openTagName, , closeTagName] = matched;
     const typeName = (openTagName || closeTagName).toLowerCase();
     const nodeType = state.schema.nodes[typeName];

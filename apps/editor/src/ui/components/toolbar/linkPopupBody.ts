@@ -73,6 +73,9 @@ export class LinkPopupBody extends Component<Props> {
   }
 
   render() {
+    setTimeout(() => {
+      (this.refs.url as HTMLInputElement).focus();
+    }, 2);
     return html`
       <div aria-label="${i18n.get('Insert link')}">
         <label for="toastuiLinkUrlInput">${i18n.get('URL')}</label>

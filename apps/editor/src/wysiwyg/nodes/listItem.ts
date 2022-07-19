@@ -16,6 +16,7 @@ export class ListItem extends NodeSchema {
       attrs: {
         task: { default: false },
         checked: { default: false },
+        date: { default: null },
         rawHTML: { default: null },
       },
       defining: true,
@@ -28,13 +29,14 @@ export class ListItem extends NodeSchema {
             return {
               task: (dom as HTMLElement).hasAttribute('data-task'),
               checked: (dom as HTMLElement).hasAttribute('data-task-checked'),
+              date: (dom as HTMLElement).hasAttribute('date-task-checked'),
               ...(rawHTML && { rawHTML }),
             };
           },
         },
       ],
       toDOM({ attrs }: ProsemirrorNode): DOMOutputSpecArray {
-        const { task, checked } = attrs;
+        const { task, checked, date } = attrs;
 
         if (!task) {
           return [attrs.rawHTML || 'li', 0];
@@ -51,7 +53,11 @@ export class ListItem extends NodeSchema {
           {
             class: classNames.join(' '),
             'data-task': task,
-            ...(checked && { 'data-task-checked': checked }),
+            ...(checked && {
+              'data-task-checked': checked,
+              'date-task-checked': date,
+              title: date,
+            }),
           },
           0,
         ];

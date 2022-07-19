@@ -27,6 +27,7 @@ const eventTypeList: EventTypes[] = [
   'openPopup',
   'closePopup',
   'addImageBlobHook',
+  'addHtml',
   'beforePreviewRender',
   'beforeConvertWysiwygToMarkdown',
   'load',
